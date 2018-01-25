@@ -1,0 +1,18 @@
+The Naive Bayes algorithm is a classification technique based on Bayes' theorem assuming independence among predictors (features). It classifies data in two main steps \cite{matlab_naiveBayes}:
+\begin{enumerate}
+	\item Training step: Using the training data, the method estimates the parameters of a probability distribution, assuming predictors are conditionally independent given the class.
+	\item Prediction step: For any unseen test data, the method computes the posterior probability of that sample belonging to each class. The method then classifies the test data according the largest posterior probability.
+\end{enumerate}
+
+Along with simplicity, Naive Bayes is known to outperform even highly sophisticated classification methods. \\
+
+Bayes' theorem provides a way for calculating posterior probability $P(c|x)$ given other three probabilities \cite{wolfram_BayesTheorem}:
+\begin{equation} \label{eq:posterior_prob}
+P(c|x) = \frac{P(c) \, P(x|c)}{P(x)}
+\end{equation}
+where
+\begin{itemize}
+	\item $P(x|c)$ is the likelihood probability
+	\item $P(c)$ is the class prior probability 
+	\item $P(x)$ is the predictor prior probability
+\end{itemize}

@@ -1,0 +1,110 @@
+As previously mentioned, the algorithm has two main steps. We'll start off by describing the training step and move forward until reaching the prediction step.
+
+\subsection{Training step (fitting model)}
+
+\begin{table}[]
+	% increase table row spacing, adjust to taste
+	\renewcommand{\arraystretch}{1.3}
+	% if using array.sty, it might be a good idea to tweak the value of
+	% \extrarowheight as needed to properly center the text within the cells
+	\caption{Weather categorical dataset}
+	\label{tbl:weather_categorical_dataset}
+	\centering
+	% Some packages, such as MDW tools, offer better commands for making tables
+	% than the plain LaTeX2e tabular which is used here.
+	\begin{tabular}{|c|c|c|c||c|}
+		\hline
+		Outlook  & Temperature & Humidity & Windy & Play \\ \hline \hline
+		overcast &  hot        &  high    &  FALSE & yes \\ \hline
+		overcast &  cool       &  normal  &  TRUE  & yes \\ \hline
+		overcast &  mild       &  high    &  TRUE  & yes \\ \hline
+		overcast &  hot        &  normal  &  FALSE & yes \\ \hline
+		rainy    &  mild       &  high    &  FALSE & yes \\ \hline
+		rainy    &  cool       &  normal  &  FALSE & yes \\ \hline
+		rainy    &  cool       &  normal  &  TRUE  & no \\ \hline
+		rainy    &  mild       &  normal  &  FALSE & yes \\ \hline
+		rainy    &  mild       &  high    &  TRUE  & no \\ \hline
+		sunny    &  hot        &  high    &  FALSE & no \\ \hline
+		sunny    &  hot        &  high    &  TRUE  & no \\ \hline
+		sunny    &  mild       &  high    &  FALSE & no \\ \hline
+		sunny    &  cool       &  normal  &  FALSE & yes \\ \hline
+		sunny    &  mild       &  normal  &  TRUE  & yes \\ \hline
+	\end{tabular}
+\end{table}
+
+It is essential to know which type of probability distribution our data corresponds to. Table \ref{tbl:weather_categorical_dataset} shows the dataset we'll be working with throughout this report, which is basically a prediction of whether players are able to play based on different meteorological conditions. First thing we notice is that the observations are categorical, that is, each variable can take only one of a fixed number of possible values (levels). Furthermore, each predictor has its own fixed set of possible values independent from the other predictors. This observations correspond to a \textbf{multivariate multinomial distribution}. A classifier for this type of probability distribution must perform the following steps:
+\begin{enumerate}
+	\item Record the distinct categories represented in the observations of       the entire predictor and transform from categorical to numerical representation (easier to handle in a computer).
+	\item Separate the observations by response class.
+	\item For each response class, fit a multinomial model using the category relative frequencies and total number of observations.
+\end{enumerate}
+
+\begin{table}[]
+	% increase table row spacing, adjust to taste
+	\renewcommand{\arraystretch}{1.3}
+	% if using array.sty, it might be a good idea to tweak the value of
+	% \extrarowheight as needed to properly center the text within the cells
+	\caption{Prior probabilities table for \textit{Outlook}}
+	\label{tbl:prior_table}
+	\centering
+	% Some packages, such as MDW tools, offer better commands for making tables
+	% than the plain LaTeX2e tabular which is used here.
+	\begin{tabular}{|c|c|c||c|}
+		\hline
+		Outlook  & No & Yes & \\ \hline \hline
+		overcast  &  & 4 & 4/14 = 0.29 \\ \hline
+		rainy  & 2 & 3 & 5/14 = 0.36 \\ \hline
+		sunny  & 3 & 2 & 5/14 = 0.36 \\ \hline
+		Total  & 5 & 9 & \\ \hline \hline
+		& 5/14 = 0.36 & 9/14 = 0.64 & \\ \hline
+	\end{tabular}
+\end{table}
+
+To better illustrate the last step, we'll provide an example using the \textit{Outlook} predictor. Table \ref{tbl:prior_table} shows the prior probabilities, which can be computed by counting elements and then dividing them over the total number of observations. Likelihood, in the general case, can be computed by using the following formula:
+\begin{equation} \label{eq:likelihood_prob}
+P(x_j = L|c) = \frac{n_{j|k}(L) }{n_k}
+\end{equation}
+where
+\begin{itemize}
+	\item $L$ is the level
+	\item $c$ is the class
+	\item $x_j$ is the predictor (feature) $j$
+	\item $n_{j|k}(L)$ is the number of observations for which predictor $j$ equals $L$ in class $k$
+	\item $n_k$ is the number of observations in class $k$
+\end{itemize}
+
+Then, as an example, we can calculate the probability of whether the players will be able to play given sunny weather.
+\begin{equation*}
+P(\text{yes}|\text{sunny}) = \frac{P(\text{yes}) \, P(\text{sunny}|\text{yes})}{P(\text{sunny})} = \frac{(9/14)(2/9)}{5/14} = 0.4
+\end{equation*}
+
+\subsection{Managing zero probabilities}
+Due to the small size of the overall dataset, there are some predictor-level-class combinations that won't be present in the training set and will produce zero probabilities if we use equation \ref{eq:likelihood_prob}. By having zero probabilities we're assuming that certain events will never occur, which is rather unrealistic. For dealing with zero probabilities we can apply \textbf{smoothing}. One of the most used forms of smoothing was invented by Laplace and it is often referred to as \textbf{additive smoothing}.
+\begin{equation}
+P(x_j = L|c) = \frac{1 + n_{j|k}(L) }{n_j + n_k}
+\end{equation} 
+where
+\begin{itemize}
+	\item $n_j$ is the number of distinct levels in the predictor
+\end{itemize} 
+
+\subsection{Testing step (prediction)}
+The probabilities previously computed will now be used to estimated an unknown output by using Bayes' theorem.
+\begin{equation}
+P(c_i|X) = P(c_i) \prod_{j=1}^{m}P(x_j|c_i)
+\end{equation}
+where
+\begin{itemize}
+	\item $c$ is the class
+	\item $X$ is an i-th dimensional observation vector
+\end{itemize}
+
+Notice that we've excluded the effect of $P(x_j)$ since it only acts as a scalar factor and final results won't be affected by it.
+
+For each observation in the testing set we'll compute 2 probabilities, one for each class. We'll then classify according to the highest probability.
+\begin{equation}
+\text{Play} = \begin{cases}
+\text{yes} & \text{iff } P(\text{yes}|X) > P(\text{no}|X) \\
+\text{no} & \text{otherwise}
+\end{cases}
+\end{equation}

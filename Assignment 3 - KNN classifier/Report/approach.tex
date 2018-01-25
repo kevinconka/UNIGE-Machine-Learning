@@ -1,0 +1,78 @@
+\subsection{Training step (fitting model)}
+As previously mentioned, $k$-NN is a lazy learning algorithm and there is no computation in this step. Nevertheless, we can detail here the different distance functions which will help us determine the $k$ closest neighbors.
+\begin{itemize}
+	\item Euclidean distance: \textit{ordinary} straight-line distance between two points in Euclidean space. 
+	\begin{equation}
+	d(\boldsymbol{x}, \boldsymbol{y}) = 
+	\sqrt{\sum_{i = 1}^{n} (x_i - y_i)^{2}}
+	\end{equation}
+	\item Manhattan (city block) distance: absolute difference of two points' Cartesian coordinates. Multiple shortest paths can be obtained with this metric, whereas the euclidean one has a \textit{unique} shortest path. It can be interpreted as the shortest path(s) a car would take between two intersections.
+	\begin{equation}
+	d(\boldsymbol{x}, \boldsymbol{y}) = 
+	\sum_{i = 1}^{n} |x_i - y_i|
+	\end{equation}
+	\item Minkowksi distance: can be considered a generalization of both, Euclidean and Manhattan distance.  
+	\begin{equation}
+	d(\boldsymbol{x}, \boldsymbol{y}) = \left( 
+	\sum_{i = 1}^{n} |x_i - y_i|^{q} \right)^{1/q}
+	\end{equation}
+\end{itemize}
+
+Additionally, we introduce three different distance weighting functions.
+\begin{itemize}
+	\item \texttt{equal}: All neighbors get equal weight of 1.
+	\item \texttt{invdist}: Weight is 1/distance of each corresponding neighbor.
+	\item \texttt{rank}: Weight is 1/rank where rank corresponds to the ordinal value of each neighbor.
+\end{itemize}
+\begin{table}[h]
+	% increase table row spacing, adjust to taste
+	\renewcommand{\arraystretch}{1.3}
+	% if using array.sty, it might be a good idea to tweak the value of
+	% \extrarowheight as needed to properly center the text within the cells
+	\setlength\extrarowheight{0.5pt}
+	\caption{Example list of nearest neighbors.}
+	\label{tbl:example}
+	\centering
+	% Some packages, such as MDW tools, offer better commands for making tables
+	% than the plain LaTeX2e tabular which is used here.
+	\begin{tabular}{|c|c|c|}
+		\hline
+		rank & distance & \textbf{class} \\ \hline \hline
+		1 & 0.3 & blue \\ \hline
+		2 & 0.4 & red \\ \hline
+		3 & 0.5 & green \\ \hline
+		4 & 0.6 & green \\ \hline
+		5 & 1.5 & red \\ \hline
+		6 & 2.9 & red \\ \hline
+	\end{tabular}
+\end{table}
+We'll provide the possible different outcomes when using each of the previously presented weighting functions by taking as reference the premeditated example in table \ref{tbl:example}. The weighted sums, using each of the different weighting functions, are shown in table \ref{tbl:example_res} and it is easy to see how each function affects the predicted class $\hat{y}$.
+\begin{table}[h]
+	% increase table row spacing, adjust to taste
+	\renewcommand{\arraystretch}{1.3}
+	% if using array.sty, it might be a good idea to tweak the value of
+	% \extrarowheight as needed to properly center the text within the cells
+	\setlength\extrarowheight{0.5pt}
+	\caption{Prediction ($\hat{y}$) using different weighting functions.}
+	\label{tbl:example_res}
+	\centering
+	% Some packages, such as MDW tools, offer better commands for making tables
+	% than the plain LaTeX2e tabular which is used here.
+	\begin{tabular}{|c||c|c|c||c|}
+		\hline
+		& blue       & red        & green   & $\hat{y}$ \\ \hline \hline
+		\texttt{equal}   & 1          & \textbf{3} & 2       & red   \\ \hline
+		\texttt{invdist} & 3.33       & 3.51 & \textbf{3.66} & green \\ \hline
+		\texttt{rank}    & \textbf{1} & 0.86       & 0.58    & blue  \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{Testing step (prediction)}
+Prediction step can be summarized as:
+\begin{enumerate}
+	\item Computing distance between an \textit{unseen} pattern/observation and all the other elements in the training set.
+	\item Extract the $k$-nearest neighbors. Choose the $k$ shortest distances along with the respective class which they belong.
+	\item Classify observation according to the class most common among the (weighted) neighbors. 
+\end{enumerate}
+
+We can already appreciate the simplicity of this algorithm since it only consists of mainly three steps. However, this simplicity comes with a high computational cost. Taking into account an  $m \times n$ training set, the algorithm complexity (per \textit{unseen} observation) is approximately $O(mnk)$ depending on the method used to extract the $k$ nearest neighbors.

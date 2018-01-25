@@ -1,0 +1,67 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: lab3_kNNClassifier.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: ../../references.bib
+I was expecting a `,' or a `}'---line 5 of file ../../references.bib
+ :     
+ :     %howpublished = "",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 44 of file ../../references.bib
+ :  
+ :  %volume    = 4,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+
+Done.
+You've used 2 entries,
+            4087 wiz_defined-function locations,
+            834 strings with 7638 characters,
+and the built_in function-call counts, 984 in all, are:
+= -- 79
+> -- 13
+< -- 1
++ -- 6
+- -- 3
+* -- 57
+:= -- 199
+add.period$ -- 4
+call.type$ -- 2
+change.case$ -- 3
+chr.to.int$ -- 0
+cite$ -- 2
+duplicate$ -- 73
+empty$ -- 77
+format.name$ -- 4
+if$ -- 196
+int.to.chr$ -- 0
+int.to.str$ -- 2
+missing$ -- 15
+newline$ -- 31
+num.names$ -- 2
+pop$ -- 35
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 72
+stack$ -- 0
+substring$ -- 4
+swap$ -- 45
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 2
+warning$ -- 0
+while$ -- 2
+width$ -- 3
+write$ -- 43
+(There were 2 error messages)

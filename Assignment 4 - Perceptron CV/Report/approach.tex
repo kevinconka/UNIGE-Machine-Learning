@@ -1,0 +1,55 @@
+In this section we describe the approach taken for the training (learning) and the prediction phase of the perceptron.
+
+\subsection{Training step (learning)}
+
+The neural network perceptron is a way of representing a hyperplane via its weight values. Given a dataset, there are two main ways to compute the weight values: \textbf{offline} and \textbf{online} learning. Offline learning is used when we're given the whole dataset, whereas online learning is used when we are given observations one by one and we would like the network to update its parameters after each observation, adapting itself slowly in time.\\
+
+\subsubsection{Online learning}
+This approach is interesting for a number of reasons:
+\begin{itemize}
+	\item It saves us the cost of storing training data and optimization intermediate results in an external memory.
+	\item Simpler approach where we do not require to solve a complex optimization problem over a \textit{big} dataset.
+	\item Problem may change in time, meaning that data distribution is not fixed, and training set cannot be chosen a priori. For example, a speech recognition system that adapts itself to its user.
+\end{itemize}
+
+In online learning we start from random initial weights and at each iteration we adjust the parameters in order to minimize the error between the desired and the predicted output.
+
+For this implementation of the perceptron we'll use the \textit{sign} function as the activation function. Algorithm \ref{algo:perceptron} describes the steps to follow when performing binary classification, where $\eta$ is the \textit{learning rate}, $l$ is used a subscript to denote a single observation and $m$ is the total number of observations in the available training set. An \textit{epoch} is a measure of the number of times all of the training data is used once to update the weights.
+\begin{algorithm}
+	\caption{Perceptron training algorithm for binary classification using \textit{sign} as activation function.}
+	\label{algo:perceptron}
+	\begin{algorithmic}
+		\Ensure Initialize $w$ with small random values
+		\State $ l \gets 1$
+		\Comment{observation index}
+		\State epochs $\gets 1$
+		\Repeat
+		\State $a \gets \text{sign}(x_l \cdot w)$
+		\State $\delta \gets 0.5 \cdot (y_l - a)$ \Comment{error}
+		\State $\Delta w \gets \eta \cdot \delta \cdot x_l$
+		\State $w \gets w + \Delta w$
+		\Comment{update weights}
+		\State $l \gets l + 1$ \Comment{one by one}
+		\If{$l > m$}
+			\State epochs $\gets$ epochs $+1$
+			\If{no errors}
+				\Comment{data linearly separable}
+				\State \textbf{break} loop
+			\EndIf
+			\State $ l \gets 1$ \Comment{reset index}
+		\EndIf	
+		\Until{epochs $\geq$ maxEpochs} 
+	\end{algorithmic}
+\end{algorithm}
+
+As previously mentioned, the perceptron is a linear classifier, therefore it will never reach the state where all inputs are classified correctly if the training set is not linearly separable, i.e. if positive examples cannot be separated from negative ones by a hyperplane. In case of having \textit{non} linearly separable data, the learning will fail completely using this standard algorithm since it provides no \textit{approximate} solution. But if the training set \textit{is} linearly separable, the perceptron is guaranteed to converge.
+
+\subsection{Testing step (prediction)}
+
+The prediction phase for the perceptron is straightforward since by now a hyperplane that separates the positive from the negative class has been found. Unseen data is send through the inputs of the perceptron and the output will tell us if the given observation correspond to the positive or negative class. Mathematically, the prediction is carried out as follows (assuming \textit{sign} is the activation function).
+\begin{equation}
+\hat{y} = \text{sign}(\boldsymbol{w}^T \, \boldsymbol{x})
+\end{equation}
+
+%- TODO: add multiclass section if time allows
+% \subsection{Multiclass classification (one-vs-all)}

@@ -1,0 +1,19 @@
+For this lab assignment, 3 two-dimensional datasets are provided. The classification in all of these cases is binary, that is, only two classes can be predicted. Additionally, they are all linearly separable. The line dividing the two classes, also called decision boundary, will be manually chosen with trial-and-error and looking at graphical information.
+
+Once we obtain a valid linear classifier we'll induce random noise to the decision boundary and test its prediction accuracy. Summing it all up, the main steps to follow are:
+\begin{enumerate}
+	\item Program a simple classifier.
+	\item Visualize datasets by plotting them.
+	\item Set decision boundary parameters by trial-and-error.
+	\item Add random noise in the following form.
+	\begin{enumerate}
+		\item Set the parameter vector $w$ to unit norm.
+		\item Create a random vector $r$ of the same dimension as $w$ with a range of $[-1, 1]$.
+		\item Set perturbation vector $r$ to unit norm.
+		\item Multiply it by a constant $p$.
+		\item Add the noise to the parameters $w_p = w + p \, r$
+	\end{enumerate}
+	\item Run the classifier using a high number of different perturbation vectors $r$, e.g. 100
+	\item Increase $p$ from 1\% to 10\% the norm of $w$ in 10 steps and test the classifier at each step.
+	\item Perform a result analysis.
+\end{enumerate}
