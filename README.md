@@ -24,7 +24,7 @@ Lab assignments developed during the Machine Learning course at UNIGE
    * Cross validation and hyper-parameter tuning.
    * Binary (one-vs-all) and multiclass classification.
    * Comparison between performance of perceptron and k-NN.
-1. [Autoencoder using NNs](/Assignment%205%20-%20Perceptron%20CV/Report/lab5_autoencoder.pdf)
+1. [Autoencoder using NNs](/Assignment%205%20-%20Neural%20Networks/Report/lab5_autoencoder.pdf)
    * Collaborative lab with Alexandre Sarazin
    * Use of MATLAB's nntool (neural networks toolbox)
    * Autoencoder using a simple Neural Netwrok with 1 hidden layer.
