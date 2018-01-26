@@ -7,6 +7,8 @@ Lab assignments developed during the Machine Learning course at UNIGE
 
 ## Assignments summary
 
+![Click here](/Images/assignment_1.png)
+
 1. [Linear classifier](/Assignment%201%20-%20linear-threshold%20classifier/Report/lab1_linearClassifiers.pdf)
    * No algorithms developed, instead a manual-visual approach was used to select the hyperplane dividing 2 linearly-separable classes.
 1. [Naive Bayes classifier](/Assignment%202%20-%20Naive%20Bayes%20classifier/Report/lab2_naiveBayesClassifier.pdf)
