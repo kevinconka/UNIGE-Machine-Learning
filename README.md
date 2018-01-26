@@ -18,7 +18,7 @@ Lab assignments developed during the Machine Learning course at UNIGE
    * Introduction to the confusion matrix and its terminology (accuracy, recall, precision, F1 score)
    * t-SNE embedding (optional visualization usng built-in MATLAB function)
    * Multiclass classification (0, 1, 2, ..., 9)
-1. [Percetron and corss-validation](/Assignment%204%20-%20Perceptron%20CV/Report/lab4_perceptronClassifier.pdf "Link to report PDF")
+1. [Percetron and cross-validation](/Assignment%204%20-%20Perceptron%20CV/Report/lab4_perceptronClassifier.pdf "Link to report PDF")
    * Developed Rosenblatt's perceptron using _sign_ as activation function.
    * Tested with semeion-digits dataset (handwritten digits)
    * Cross validation and hyper-parameter tuning.
