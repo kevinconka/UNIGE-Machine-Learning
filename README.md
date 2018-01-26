@@ -38,7 +38,7 @@ This folder contains the implementation of
 
 ## common-functions
 
-Useful functins used throghout the reports
+Useful functions used throghout the reports
 * Confusion matrix related
   * plot_confMat.m
   * accuracy.m
