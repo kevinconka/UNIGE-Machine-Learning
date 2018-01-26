@@ -1,4 +1,4 @@
-# UNIGE-Machine-Learning
+# UNIGE-Machine-Learning 
 Lab assignments developed during the Machine Learning course at UNIGE
 
 1. [Linear classifier](/Assignment%201%20-%20linear-threshold%20classifier/Report/lab1_linearClassifiers.pdf)
@@ -31,7 +31,6 @@ This folder contains the implementation of
 * Rosenblatt's perceptron
 
 ## common-functions
-a ver
 
 Useful functins used throghout the reports
 * Confusion matrix related
