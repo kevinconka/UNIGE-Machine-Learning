@@ -11,7 +11,7 @@ Lab assignments developed during the Machine Learning course at UNIGE
    * No algorithms developed, instead a manual-visual approach was used to select the hyperplane dividing 2 linearly-separable classes.
 1. [Naive Bayes classifier](/Assignment%202%20-%20Naive%20Bayes%20classifier/Report/lab2_naiveBayesClassifier.pdf "Link to report PDF")
    * Developed naive bayes classifier on categorical data (multivariate multinomial distribution).  
-   * Dataset used consisted of 14 observations with 4 features each.
+   * Dataset consisting of 14 observations with 4 features each.
    * Binary classification (yes, no)
 1. [k-Nearest Neighbors classifier](/Assignment%203%20-%20KNN%20classifier/Report/lab3_kNNClassifier.pdf "Link to report PDF")
    * lazy-learner algorithm developed and tested on semeion-digits dataset (handwritten scanned digits). 
