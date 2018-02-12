@@ -1,5 +1,5 @@
 # UNIGE-Machine-Learning 
-Lab assignments developed during the Machine Learning course at UNIGE
+[Master course] Lab assignments developed during the Machine Learning course at UNIGE
 
 ## Requirements
 * MATLAB
